@@ -1,0 +1,41 @@
+/*
+ * JS localize CakePHP Plugin
+ * Copyright (c) 2009 Matt Curry
+ * www.PseudoCoder.com
+ * http://github.com/mcurry/js
+ *
+ * @author      Matt Curry <matt@pseudocoder.com>
+ * @license     MIT
+ *
+ */
+
+/* About */
+This plugin allows you to create javascript files that include Cake's __() function, which translates strings.  The plugin processes the files and caches them as static javascript files.
+
+/* Instructions */
+   1. Download the plugin to /app/plugins/js.
+   2. There are two ways to use this plugin:
+    a. If you want to keep a separate JavaScript file with all language strings:
+      - Create the file as /app/webroot/js/source/lang.js.  It will likely look something like this (but doesn't have to):
+        var Lang =
+          {
+            Message1 : "<?php __('Message 1') ?>",
+            Message2 : "<?php __('Message 2') ?>",
+          };
+      - Then include your js file as /js/lang/en.js.  You can substitute "en" with any of the language codes supported.
+        $javascript->link('/js/lang/en.js');
+    
+    b. If you want to include your localized strings right in the javascript code:
+      - Put the files in /app/webroot/js/source/.  
+        For example if you had a site.js that had a bunch of JavaScript code mized with calles to __() the file would be:
+        /app/webroot/js/source/site.js.
+      - Then include your js file as /js/lang/en/site.js.  You can substitute "en" with any of the language codes supported.
+        $javascript->link('/js/lang/en/site.js');
+   3. Cache
+    - If debug is enabled no files are cached.
+    - If debug is off files will be cached to the request location.
+    - Delete the entire /app/webroot/js/lang dir to remove the cache - it's a good idea to do this as part of your build.
+    
+/* How This Works */
+When the first request is made no file actually exists.  This causes Cake to catch the request and the request is handled by the plugin.  The plugin looks for the base file in /source (this is configurable).  The source file is processed by PHP so that all calls to __() are replaced with the correct strings.  The resulting file is then saved to the file system so that the next request reads it directly.
+      
