@@ -16,3 +16,6 @@ msgstr "Hola World"
 
 msgid "This is a test"
 msgstr "El test-o"
+
+msgid "Sub Message"
+msgstr "El Message Sub"

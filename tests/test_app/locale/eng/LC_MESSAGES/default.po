@@ -16,3 +16,6 @@ msgstr "Hello World"
 
 msgid "This is a test"
 msgstr "A test is this"
+
+msgid "Sub Message"
+msgstr "JS in sub folder"

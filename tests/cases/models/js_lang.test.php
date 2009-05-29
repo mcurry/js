@@ -36,19 +36,19 @@ class JsLangTestCase extends CakeTestCase {
   }
 
   function testI18nEn() {
-    $result = $this->JsLang->i18n('en', 'test.js');
+    $result = $this->JsLang->i18n(array('en', 'test.js'));
     $expected = 'alert("Hello World");';
     $this->assertEqual($result, $expected);
   }
 
   function testI18nEs() {
-    $result = $this->JsLang->i18n('es', 'test.js');
+    $result = $this->JsLang->i18n(array('es', 'test.js'));
     $expected = 'alert("Hola World");';
     $this->assertEqual($result, $expected);
   }
 
   function testLangEn() {
-    $result = $this->JsLang->i18n('en.js');
+    $result = $this->JsLang->i18n(array('en.js'));
     $expected = <<<END
 var Lang =
   {
@@ -59,7 +59,7 @@ END;
   }
 
   function testLangEs() {
-    $result = $this->JsLang->i18n('es.js');
+    $result = $this->JsLang->i18n(array('es.js'));
     $expected = <<<END
 var Lang =
   {
@@ -69,6 +69,12 @@ END;
     $this->assertEqual($result, $expected);
   }
 
+  function testLangEnSub() {
+    $result = $this->JsLang->i18n(array('en', 'sub', 'sub.js'));
+    $expected = 'alert("JS in sub folder");';
+    $this->assertEqual($result, $expected);
+  }
+  
   function testWrite() {
     $expected = 'alert("Hola World");';
     $this->JsLang->write('es/test.js', $expected);
