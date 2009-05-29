@@ -38,4 +38,3 @@ This plugin allows you to create javascript files that include Cake's __() funct
     
 /* How This Works */
 When the first request is made no file actually exists.  This causes Cake to catch the request and the request is handled by the plugin.  The plugin looks for the base file in /source (this is configurable).  The source file is processed by PHP so that all calls to __() are replaced with the correct strings.  The resulting file is then saved to the file system so that the next request reads it directly.
-      
