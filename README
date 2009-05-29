@@ -22,15 +22,15 @@ This plugin allows you to create javascript files that include Cake's __() funct
             Message1 : "<?php __('Message 1') ?>",
             Message2 : "<?php __('Message 2') ?>",
           };
-      - Then include your js file as /js/lang/en.js.  You can substitute "en" with any of the language codes supported.
-        $javascript->link('/js/lang/en.js');
+      - Then include your js file as lang/en.js.  You can substitute "en" with any of the language codes supported.
+        $javascript->link('lang/en.js');
     
     b. If you want to include your localized strings right in the javascript code:
       - Put the files in /app/webroot/js/source/.  
         For example if you had a site.js that had a bunch of JavaScript code mized with calles to __() the file would be:
         /app/webroot/js/source/site.js.
-      - Then include your js file as /js/lang/en/site.js.  You can substitute "en" with any of the language codes supported.
-        $javascript->link('/js/lang/en/site.js');
+      - Then include your js file as lang/en/site.js.  You can substitute "en" with any of the language codes supported.
+        $javascript->link('lang/en/site.js');
    3. Cache
     - If debug is enabled no files are cached.
     - If debug is off files will be cached to the request location.

@@ -18,17 +18,17 @@ class JsLang extends JsAppModel {
   }
 
   function i18n($params, $cache=false) {
+    if(!is_array($params)) {
+      $params = explode('/', trim($params, '/'));  
+    }
+    
     $this->init();
 
     $cacheFile = implode(DS, $params);
-    if (count($params) == 1 && preg_match('/\.js$/i', $params[0])) {
-      $lang = str_replace('.js', '', $params[0]);
-      $jsFile = 'lang.js';
-    } else {
-      $lang = $params[0];
-      unset($params[0]);
-      $jsFile = implode(DS, $params);
-    }
+    $params = $this->normalize($params);
+    $jsFile = $this->parseFile($params);
+    $lang = $this->parseLang($params);
+    
 
     $L10n = new L10n();
     if (!$L10n->map($lang)) {
@@ -50,6 +50,36 @@ class JsLang extends JsAppModel {
     }
 
     return false;
+  }
+  
+  function parseFile($file) {
+    if (count($file) == 1 && preg_match('/\.js$/i', $file[0])) {
+      return 'lang.js';
+    } else {
+      unset($file[0]);
+      return implode(DS, $file);
+    }
+  }
+  
+  function parseLang($file) {
+    if (count($file) == 1 && preg_match('/\.js$/i', $file[0])) {
+      return str_replace('.js', '', $file[0]);
+    } else {
+      return $file[0];
+    }
+  }
+  
+  function normalize($file) {
+    if(!is_array($file)) {
+      $file = explode('/', trim($file, '/'));  
+    }
+    
+    if($file[0] == 'lang') {
+      unset($file[0]);
+      $file = array_values($file);
+    }
+    
+    return $file;
   }
 
   function write($path, $content) {
